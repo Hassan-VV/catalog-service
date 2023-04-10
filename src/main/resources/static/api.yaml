@@ -33,6 +33,19 @@ components:
         - author
         - price
 paths:
+  /:
+    get:
+      tags:
+        - Home
+      summary: home api
+      operationId: getGreeting
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
   /books:
     get:
       tags:
