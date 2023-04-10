@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Catalog Service
+  description: Catalog Service
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:9001/api/v1'
+
+components:
+  parameters:
+    ISBN:
+      in: path
+      name: isbn
+      required: true
+      schema:
+        type: string
+  schemas:
+    Book:
+      properties:
+        isbn:
+          type: string
+          pattern: '^([0-9]{10}|[0-9]{13})$'
+        title:
+          type: string
+        author:
+          type: string
+        price:
+          type: number
+          minimum: 1
+      required:
+        - isbn
+        - title
+        - author
+        - price
+paths:
+  /books:
+    get:
+      tags:
+        - Books
+      summary: Retrieve all books
+      operationId: get
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
+
+    post:
+      tags:
+        - Books
+      summary: add new book
+      operationId: post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+  /books/{isbn}:
+    get:
+      tags:
+        - Books
+      summary: get By sibn
+      operationId: getByIsbn
+      parameters:
+        - $ref: '#/components/parameters/ISBN'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    delete:
+      tags:
+        - Books
+      summary: delete books by isbn
+      operationId: delete
+      parameters:
+        - $ref: '#/components/parameters/ISBN'
+      responses:
+        204:
+          description: NO CONTENT
+    put:
+      tags:
+        - Books
+      summary: update book
+      operationId: put
+      parameters:
+        - $ref: '#/components/parameters/ISBN'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        201:
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
