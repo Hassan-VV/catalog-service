@@ -13,8 +13,8 @@ jobs:
       - name: Set up JDK
         uses: actions/checkout@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
           cache: maven
       - name: code vulnerability scanning
         uses: anchore/scan-action@v3
