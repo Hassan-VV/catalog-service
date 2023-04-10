@@ -13,8 +13,8 @@ jobs:
       - name: Set up JDK
         uses: actions/checkout@v3
         with:
-          distribution: temurin
-          java-version: 17
+          distribution: 'temurin'
+          java-version: '17'
           cache: maven
       - name: code vulnerability scanning
         uses: anchore/scan-action@v3
@@ -25,6 +25,4 @@ jobs:
           severity-cutoff: high
           acs-report-enable: true
       - name: Build, unit tests and integration tests
-        run: |
-          chmod +x mvnw
-          ./mvnw --batch-mode --update-snapshots package
+        run: mvn --batch-mode --update-snapshots verify
