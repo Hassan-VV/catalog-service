@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookService {
 
-    private final InMemoryBookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    public BookService(InMemoryBookRepository bookRepository) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
