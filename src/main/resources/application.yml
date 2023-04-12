@@ -9,4 +9,17 @@ server:
 polar:
   greeting: Welcome to the local book catalog!
   testdata:
+    enabled: false
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+    url: jdbc:postgresql://localhost:5432/polardb_catalog?serverTimezone=UTC&useSSL=false
+    hikari:
+      connection-timeout: 250
+      maximum-pool-size: 5
+  flyway:
     enabled: true
+    group: true
+    locations: classpath:db/migration

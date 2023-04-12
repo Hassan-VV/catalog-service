@@ -1,7 +1,6 @@
 package com.cloup.services;
 
 import com.cloup.data.entities.Book;
-import com.cloup.data.persistance.InMemoryBookRepository;
 import com.cloup.data.repository.BookRepository;
 import com.cloup.exception.BookAlreadyExistsException;
 import com.cloup.exception.BookNotFoundException;
@@ -37,10 +36,14 @@ public class BookService {
         return bookRepository.findByIsbn(isbn)
                 .map(existingBook -> {
                     var bookToUpdate = new Book(
+                            existingBook.id(),
                             existingBook.isbn(),
                             book.title(),
                             book.author(),
-                            book.price());
+                            book.price(),
+                            existingBook.createdAt(),
+                            existingBook.updatedAt(),
+                            existingBook.version());
                     return bookRepository.save(bookToUpdate);
                 })
                 .orElseGet(() -> addBookToCatalog(book));
