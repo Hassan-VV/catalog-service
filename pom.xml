@@ -118,6 +118,23 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>${project.name}:latest</imageName>
+                    <buildArgs>
+                        <buildArg>
+                            <builder>ghcr.io/graalvm/native</builder>
+                        </buildArg>
+                    </buildArgs>
+                    <jvmArgs>
+                        <arg>
+                            <BP_JVM_VERSION>17</BP_JVM_VERSION>
+                        </arg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
@@ -132,10 +149,6 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
